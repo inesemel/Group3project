@@ -9,6 +9,8 @@ public class StudentMenu {
         Scanner scanner = new Scanner(System.in);
         System.out.println("What do you want to do?");
         System.out.println("1. Add a new student");
+        System.out.println("2. Add student's scores");
+        System.out.println("3. Print report card");
 
         System.out.println("Select an option: ");
         int option = scanner.nextInt();
@@ -18,6 +20,10 @@ public class StudentMenu {
                 break;
             case 2:
                 System.out.println(StudentController.addStudentScores() ? "Successfully added scores" : "Scores not added");
+                break;
+            case 3:
+                System.out.println(StudentController.getReportById());
+                break;
             default:
                 System.out.println("Invalid option, try again");
                 menu();

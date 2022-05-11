@@ -119,43 +119,62 @@ public class StudentController {
     }
 
 
-
-    public static String getReportById() {
-        System.out.println("Enter the id of the student whose report you want to make: ");
-        int id = scanner.nextInt();
+    public static String getStudentInfo(int id) {
 
         try{
-            ps = getConnection().prepareStatement("SELECT * FROM students WHERE id=" + id);
+            ps = getConnection().prepareStatement("SELECT * FROM student_info WHERE id=" + id);
             rs = ps.executeQuery();
 
-            // define variables to temporarily hold
-            // each field in the result set
+//            int studentId;
+//            String name, surname, faculty;
 
-            int studentId;
-            String name, surname, faculty;
+            String name = null;
+            String surname = null;
+            String faculty = null;
 
+            String report = "";
             //loop through the result set and add the necessary values to the student object
 
             while(rs.next()){
-                studentId = rs.getInt("id");
+//                studentId = rs.getInt("id");
                 name = rs.getString("name");
                 surname = rs.getString("surname");
                 faculty = rs.getString("faculty");
             }
 
+            report = name + " " + surname + ", Faculty of " + faculty;
+            return report;
 
         } catch (SQLException e){
             e.printStackTrace();
+            return null;
         }
+    }
 
-        String report = "";
+    public static String getStudentScores(int id) {
+        String faculty = getFaculty(id);
+        try{
+            ps = getConnection().prepareStatement("SELECT * FROM " + faculty + " WHERE student_id=" + id);
+            rs = ps.executeQuery();
+            String report = null;
+            return report;
+
+        } catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public static String getReportById() {
+        System.out.println("Enter the id of the student whose report you want to make: ");
+        int id = scanner.nextInt();
+        String report = null;
         return report;
 
     }
 
     public static String getFaculty(int id) {
         try{
-            ps = getConnection().prepareStatement("SELECT * FROM students WHERE id=" + id);
+            ps = getConnection().prepareStatement("SELECT * FROM student_info WHERE id=" + id);
             rs = ps.executeQuery();
 
             String faculty = null;
