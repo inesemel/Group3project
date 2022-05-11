@@ -16,6 +16,8 @@ public class StudentMenu {
             case 1:
                 System.out.println(StudentController.addStudent() ? "Successfully added a new student" : "Student not added ");
                 break;
+            case 2:
+                System.out.println(StudentController.addStudentScores() ? "Successfully added scores" : "Scores not added");
             default:
                 System.out.println("Invalid option, try again");
                 menu();
