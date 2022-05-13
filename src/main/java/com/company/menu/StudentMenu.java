@@ -14,6 +14,8 @@ public class StudentMenu {
         System.out.println("4. Print a report card");
         System.out.println("5. Find faculty");
         System.out.println("6. Delete a student");
+        System.out.println("7. Get scores by id");
+        System.out.println("8. Print a list of courses");
 
         System.out.println("Select an option: ");
         int option = scanner.nextInt();

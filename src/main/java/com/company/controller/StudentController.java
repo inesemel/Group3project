@@ -233,7 +233,7 @@ public class StudentController {
         int id = scanner.nextInt();
         String report = null;
         report = getStudentInfo(id) + "\r\n" + getStudentScores(id);
-        return report;
+        return report.substring(3);
 
     }
 
