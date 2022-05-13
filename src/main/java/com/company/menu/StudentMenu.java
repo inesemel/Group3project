@@ -35,6 +35,10 @@ public class StudentMenu {
                 break;
             case 6:
                 System.out.println(StudentController.deleteStudent() ? "Student successfully deleted" : "Student not deleted");
+            case 7:
+                StudentController.getScores();
+            case 8:
+                StudentController.printList();
             default:
                 System.out.println("Invalid option, try again");
                 menu();

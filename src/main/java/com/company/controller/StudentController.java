@@ -177,6 +177,11 @@ public class StudentController {
         }
     }
 
+    public static void getScores() {
+        System.out.println("Enter id ");
+        int id = scanner.nextInt();
+        System.out.println(getStudentScores(id));
+    }
     public static String getStudentScores(int id) {
         String faculty = getFaculty(id);
         Faculty faculty1 = Faculty.valueOf(faculty.toUpperCase());
@@ -189,6 +194,7 @@ public class StudentController {
 
 //            courses = faculty1.values();
             for(Object course : faculty1.listOfCourse()) {
+                System.out.println(course);
                 while(rs.next()) {
                     subject = rs.getInt(String.valueOf(course).toLowerCase());
                     report += "\r\n" + String.valueOf(course).toUpperCase() + ": " + subject;
@@ -201,6 +207,27 @@ public class StudentController {
             return null;
         }
     }
+    public static void printList() {
+        System.out.println("Enter id ");
+        int id = scanner.nextInt();
+        String faculty = getFaculty(id);
+        Faculty faculty1 = Faculty.valueOf(faculty.toUpperCase());
+        try{
+            ps = getConnection().prepareStatement("SELECT * FROM " + faculty + " WHERE student_id=" + id);
+            rs = ps.executeQuery();
+            String report = null;
+
+//            courses = faculty1.values();
+            int i =0;
+           while(i < faculty1.listOfCourse().size()) {
+                System.out.println(faculty1.listOfCourse().get(i));
+                i++;
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
     public static String getReportById() {
         System.out.println("Enter the id of the student whose report you want to make: ");
         int id = scanner.nextInt();
