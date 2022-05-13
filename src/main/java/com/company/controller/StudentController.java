@@ -196,7 +196,6 @@ public class StudentController {
 //            courses = faculty1.values();
             while(rs.next()) {
                 while(i < faculty1.listOfCourse().size()) {
-                    System.out.println(faculty1.listOfCourse().get(i));
                     subject = rs.getInt(String.valueOf(faculty1.listOfCourse().get(i)).toLowerCase());
                     report += "\r\n" + String.valueOf(faculty1.listOfCourse().get(i)).toUpperCase() + ": " + subject;
                     i++;
@@ -252,6 +251,7 @@ public class StudentController {
             //loop through the result set and add the necessary values to the student object
 
             while(rs.next()){
+
                 faculty = rs.getString("faculty");
             }
             return faculty;
