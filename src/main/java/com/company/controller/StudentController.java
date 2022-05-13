@@ -3,10 +3,12 @@ package com.company.controller;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
 import static com.company.dbhelper.DbConnection.getConnection;
+import static java.lang.String.format;
 
 public class StudentController {
 
@@ -118,6 +120,32 @@ public class StudentController {
         return false;
     }
 
+    public static void editScore() {
+        System.out.println("Enter the student id");
+        int studentId = scanner.nextInt();
+
+        System.out.println("Please enter faculty: " + Faculty.facultiesText());
+        Faculty faculty = Faculty.valueOf(scanner.next().toUpperCase());
+
+        System.out.println("Please enter course: " + faculty.coursesText());
+        Course course = Course.valueOf(scanner.next().toUpperCase());
+
+        System.out.println("Please enter score");
+        int update = scanner.nextInt();
+
+        try {
+            String query = format("UPDATE %s SET %s = ? WHERE student_id = ?", faculty.table(), course.column());
+            PreparedStatement statement = getConnection().prepareStatement(query);
+
+            statement.setInt(1, update);
+            statement.setInt(2, studentId);
+
+            statement.execute();
+            System.out.println("Successfully updated student data");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public static String getStudentInfo(int id) {
 
@@ -153,10 +181,21 @@ public class StudentController {
 
     public static String getStudentScores(int id) {
         String faculty = getFaculty(id);
+        Faculty faculty1 = Faculty.valueOf(faculty.toUpperCase());
         try{
             ps = getConnection().prepareStatement("SELECT * FROM " + faculty + " WHERE student_id=" + id);
             rs = ps.executeQuery();
             String report = null;
+
+            int subject;
+            Faculty courses[] = faculty1.values();
+//            courses = faculty1.values();
+            for(Faculty course : courses) {
+                while(rs.next()) {
+                    subject = rs.getInt(String.valueOf(course));
+                    report += "\r\n" + String.valueOf(course).toUpperCase() + ": " + subject;
+                }
+            }
             return report;
 
         } catch (SQLException e){
@@ -168,6 +207,7 @@ public class StudentController {
         System.out.println("Enter the id of the student whose report you want to make: ");
         int id = scanner.nextInt();
         String report = null;
+        report = getStudentInfo(id) + "\r\n" + getStudentScores(id);
         return report;
 
     }
