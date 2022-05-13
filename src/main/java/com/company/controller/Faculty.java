@@ -1,5 +1,6 @@
 package com.company.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import static com.company.controller.Course.*;
 import static java.util.Arrays.asList;
@@ -32,6 +33,13 @@ public enum Faculty {
     }
 
 
+    List listOfCourse() {
+        List<String> listOfString = new ArrayList<>();
+        for (Course course : courses) {
+            listOfString.add(course.name().toLowerCase());
+        }
+        return listOfString;
+    }
 
     String table() {
         return name().toLowerCase();

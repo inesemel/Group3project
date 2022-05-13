@@ -3,8 +3,6 @@ package com.company.controller;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Locale;
 import java.util.Scanner;
 
 import static com.company.dbhelper.DbConnection.getConnection;
@@ -188,11 +186,11 @@ public class StudentController {
             String report = null;
 
             int subject;
-            Faculty courses[] = faculty1.values();
+
 //            courses = faculty1.values();
-            for(Faculty course : courses) {
+            for(Object course : faculty1.listOfCourse()) {
                 while(rs.next()) {
-                    subject = rs.getInt(String.valueOf(course));
+                    subject = rs.getInt(String.valueOf(course).toLowerCase());
                     report += "\r\n" + String.valueOf(course).toUpperCase() + ": " + subject;
                 }
             }
@@ -232,4 +230,64 @@ public class StudentController {
         }
 
     }
+    public static String getFaculty() {
+        System.out.println("Enter id ");
+        int id = scanner.nextInt();
+        return getFaculty(id);
+    }
+    public static boolean deleteStudent(){
+
+        System.out.println("Enter the faculty Sciences, History, Arts");
+        System.out.println("Which faculty student is assigned? ");
+        System.out.println("1. Arts ");
+        System.out.println("2. History ");
+        System.out.println("3. Sciences ");
+        System.out.println("Select 1, 2 or 3: ");
+        int facultyNum = scanner.nextInt();
+
+
+
+        switch (facultyNum) {
+            case 1:
+                try {
+                    System.out.println("Enter the id of the student: ");
+                    int id = scanner.nextInt();
+                    ps = getConnection().prepareStatement("DELETE FROM arts WHERE id=" + id);
+                    ps.execute();
+                    return true;
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    return false;
+                }
+
+            case 2:
+                try {
+                    System.out.println("Enter the id of the student: ");
+                    int id = scanner.nextInt();
+                    ps = getConnection().prepareStatement("DELETE FROM history WHERE id=" + id);
+                    ps.execute();
+                    return true;
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    return false;
+                }
+
+            case 3:
+                try {
+                    System.out.println("Enter the id of the student: ");
+                    int id = scanner.nextInt();
+                    ps = getConnection().prepareStatement("DELETE FROM sciences WHERE id=" + id);
+                    ps.execute();
+                    return true;
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    return false;
+                }
+            default:
+                System.out.println("Invalid option. Try again");
+                deleteStudent();
+        }
+        return false;
+    }
+
 }
