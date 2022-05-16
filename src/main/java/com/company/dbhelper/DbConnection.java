@@ -15,7 +15,8 @@ public class DbConnection {
             try{
                 connection = DriverManager.getConnection("jdbc:postgresql://lallah.db.elephantsql.com/evkvhsfi",
                         "evkvhsfi", "4XWkpmekI3Uc52dRnK2Ogd9vE0bc4p8M");
-            if(connection != null) System.out.println("The connection is created");
+//            if(connection != null)
+//                System.out.println("The connection is created");
             } catch (SQLException e){
                 System.out.println("There was a problem connecting to the database");
 
