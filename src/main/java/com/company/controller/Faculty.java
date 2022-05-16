@@ -32,7 +32,6 @@ public enum Faculty {
         return coursesText.substring(2);
     }
 
-
     List listOfCourse() {
         List<String> listOfString = new ArrayList<>();
         for (Course course : courses) {

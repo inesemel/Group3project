@@ -35,8 +35,6 @@ public class StudentController {
             System.out.println("Database error");
             return false;
         }
-
-
     }
 
     public static boolean addStudentScores() {
@@ -151,18 +149,13 @@ public class StudentController {
             ps = getConnection().prepareStatement("SELECT * FROM student_info WHERE id=" + id);
             rs = ps.executeQuery();
 
-//            int studentId;
-//            String name, surname, faculty;
-
             String name = null;
             String surname = null;
             String faculty = null;
 
             String report = "";
-            //loop through the result set and add the necessary values to the student object
 
             while(rs.next()){
-//                studentId = rs.getInt("id");
                 name = rs.getString("name");
                 surname = rs.getString("surname");
                 faculty = rs.getString("faculty");
@@ -178,7 +171,7 @@ public class StudentController {
     }
 
     public static void getScores() {
-        System.out.println("Enter id ");
+        System.out.println("Enter the student id ");
         int id = scanner.nextInt();
         System.out.println(getStudentScores(id));
     }
@@ -210,8 +203,9 @@ public class StudentController {
             return null;
         }
     }
+
     public static void printList() {
-        System.out.println("Enter id ");
+        System.out.println("Enter the student id ");
         int id = scanner.nextInt();
         String faculty = getFaculty(id);
         Faculty faculty1 = Faculty.valueOf(faculty.toUpperCase());
@@ -220,13 +214,12 @@ public class StudentController {
             rs = ps.executeQuery();
             String report = null;
 
-//            courses = faculty1.values();
            int i =0;
            while(i < faculty1.listOfCourse().size()) {
                 System.out.println(faculty1.listOfCourse().get(i));
                 i++;
             }
-            System.out.println(faculty1.listOfCourse().size());
+//            System.out.println(faculty1.listOfCourse().size());
         } catch (SQLException e){
             e.printStackTrace();
         }
@@ -238,7 +231,6 @@ public class StudentController {
         String report = "";
         report = getStudentInfo(id) + "\r\n" + getStudentScores(id);
         return report;
-
     }
 
     public static String getFaculty(int id) {
@@ -247,8 +239,6 @@ public class StudentController {
             rs = ps.executeQuery();
 
             String faculty = null;
-
-            //loop through the result set and add the necessary values to the student object
 
             while(rs.next()){
 
@@ -260,13 +250,14 @@ public class StudentController {
             e.printStackTrace();
             return null;
         }
-
     }
+
     public static String getFaculty() {
-        System.out.println("Enter id ");
+        System.out.println("Enter the student id ");
         int id = scanner.nextInt();
         return getFaculty(id);
     }
+
     public static boolean deleteStudent(){
 
         System.out.println("Enter the faculty Sciences, History, Arts");
@@ -276,8 +267,6 @@ public class StudentController {
         System.out.println("3. Sciences ");
         System.out.println("Select 1, 2 or 3: ");
         int facultyNum = scanner.nextInt();
-
-
 
         switch (facultyNum) {
             case 1:
@@ -321,5 +310,4 @@ public class StudentController {
         }
         return false;
     }
-
 }
